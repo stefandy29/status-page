@@ -8,7 +8,7 @@ Monitoring your server using prometheus exporter metrics with a single page html
 
 ## Concept
 
-![concept](/image/concept.png "")
+![concept](/image/concept.jpg "")
 
 <h3 id="Config-yaml">Config.yaml</h3>
 <table>
