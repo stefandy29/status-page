@@ -1,0 +1,25 @@
+port: 8082
+timeout: 30
+scrape_interval: 1
+buffer_size: 1024
+utc: -7
+config:
+  - target: "http://192.168.18.207:9126/metrics"
+    server_name: "Server Node 1"
+    list_metrics:
+    - metric_name: "cpu_usage"
+      name: "CPU Usage"
+      size: "%"
+      max: 100
+    - metric_name: "ram_usage"
+      name: "RAM Usage"
+      size: "%"
+      max: 100
+    - metric_name: "cpu_temp"
+      name: "CPU Temp"
+      size: "'C"
+      max: 100
+    - metric_name: "disk_usage"
+      name: "Disk Usage"
+      size: "%"
+      max: 100
