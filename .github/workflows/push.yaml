@@ -49,16 +49,16 @@ jobs:
         context: "{{defaultContext}}"
         push: true
         tags: >
-          docker.io/$DOCKER_USER/${{ github.event.repository.name }}:arm64
+          docker.io/$DOCKER_USER/${{ github.event.repository.name }}:latest
 
-    - name: Build the Docker image arm64
-      uses: docker/build-push-action@v6
-      env:
-        DOCKER_USER: ${{secrets.DOCKER_USER}}
-      with:
-        file: ./Dockerfile_amd64
-        platforms: linux/amd64
-        context: "{{defaultContext}}"
-        push: true
-        tags: >
-          docker.io/$DOCKER_USER/${{ github.event.repository.name }}:amd64
+    # - name: Build the Docker image arm64
+    #   uses: docker/build-push-action@v6
+    #   env:
+    #     DOCKER_USER: ${{secrets.DOCKER_USER}}
+    #   with:
+    #     file: ./Dockerfile_amd64
+    #     platforms: linux/amd64
+    #     context: "{{defaultContext}}"
+    #     push: true
+    #     tags: ${{ steps.meta.outputs.tags }}
+    #     labels: ${{ steps.meta.outputs.labels }}
