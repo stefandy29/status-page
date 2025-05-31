@@ -28,27 +28,23 @@ jobs:
       uses: docker/setup-qemu-action@v3
 
     - name: Build the Docker image arm64
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v5
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         REPO_NAME: ${{ github.event.repository.name }}
-        ARCH: arm64
       with:
         file: ./Dockerfile_arm64
         context: .
         push: true
-        tags: $DOCKER_USER/$REPO_NAME:$ARCH
-      if: "${{ github.event.inputs.dockerhub_operation == 'apply' }}"
-      
+        tags: $DOCKER_USER/$REPO_NAME:arm64
+
     - name: Build the Docker image arm64
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v5
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         REPO_NAME: ${{ github.event.repository.name }}
-        ARCH: amd64
       with:
         file: ./Dockerfile_amd64
         context: .
         push: true
-        tags: $DOCKER_USER/$REPO_NAME:$ARCH
-      if: "${{ github.event.inputs.dockerhub_operation == 'apply' }}"
+        tags: $DOCKER_USER/$REPO_NAME:amd64
