@@ -27,36 +27,20 @@ jobs:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
 
-    # - name: Build the Docker image
-    #   env:
-    #     DOCKER_USER: ${{secrets.DOCKER_USER}}
-    #     REPO_NAME: ${{ github.event.repository.name }}
-    #   run: |
-    #     docker build --file Dockerfile_arm64 --platform linux/arm64/v8 -t $DOCKER_USER/$REPO_NAME:arm64 .
-    #     docker push $DOCKER_USER/$REPO_NAME:arm64
-      
-    #     docker build --file Dockerfile_amd64 -t $DOCKER_USER/$REPO_NAME:amd64 .
-    #     docker push $DOCKER_USER/$REPO_NAME:amd64
-    #   if: "${{ github.event.inputs.dockerhub_operation == 'apply' }}"
-
     - name: Build the Docker image arm64
       uses: docker/build-push-action@v6
       with:
         file: ./Dockerfile_arm64
         platforms: linux/arm64/v8
-        context: "{{defaultContext}}"
+        context: .
         push: true
-        tags: >
-          ${{secrets.DOCKER_USER}}/${{ github.event.repository.name }}:latest
+        tags: ${{secrets.DOCKER_USER}}/${{ github.event.repository.name }}:arm64
 
-    # - name: Build the Docker image arm64
-    #   uses: docker/build-push-action@v6
-    #   env:
-    #     DOCKER_USER: ${{secrets.DOCKER_USER}}
-    #   with:
-    #     file: ./Dockerfile_amd64
-    #     platforms: linux/amd64
-    #     context: "{{defaultContext}}"
-    #     push: true
-    #     tags: ${{ steps.meta.outputs.tags }}
-    #     labels: ${{ steps.meta.outputs.labels }}
+    - name: Build the Docker image amd64
+      uses: docker/build-push-action@v6
+      with:
+        file: ./Dockerfile_amd64
+        platforms: linux/amd64
+        context: .
+        push: true
+        tags: ${{secrets.DOCKER_USER}}/${{ github.event.repository.name }}:amd64
