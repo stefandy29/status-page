@@ -41,15 +41,13 @@ jobs:
 
     - name: Build the Docker image arm64
       uses: docker/build-push-action@v6
-      env:
-        DOCKER_USER: ${{secrets.DOCKER_USER}}
       with:
         file: ./Dockerfile_arm64
         platforms: linux/arm64/v8
         context: "{{defaultContext}}"
         push: true
         tags: >
-          docker.io/$DOCKER_USER/${{ github.event.repository.name }}:latest
+          ${{secrets.DOCKER_USER}}/${{ github.event.repository.name }}:latest
 
     # - name: Build the Docker image arm64
     #   uses: docker/build-push-action@v6
