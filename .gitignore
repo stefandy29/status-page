@@ -1,4 +1,3 @@
-.gitignore
-Dockerfile
 *.sh
-status-page
+status-page*
+.gitignore

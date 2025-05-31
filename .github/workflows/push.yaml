@@ -1,0 +1,33 @@
+name: "Deploying image"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: docker login
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_TOKEN}}
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_TOKEN 
+
+    - name: Install QEMU
+      run: sudo apt-get update -y && sudo apt-get install -y qemu qemu-user-static
+
+    - name: Build the Docker image
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+      run: docker build . --file Dockerfile --platform linux/arm64/v8 -t $DOCKER_USER/status-blog --no-cache .
+
+    # - name: Docker Push
+    #   env:
+    #     DOCKER_USER: ${{secrets.DOCKER_USER}}
+    #   run: docker push $DOCKER_USER/status-blog
