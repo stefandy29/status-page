@@ -31,20 +31,18 @@ jobs:
       uses: docker/build-push-action@v5
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
-        REPO_NAME: ${{ github.event.repository.name }}
       with:
         file: ./Dockerfile_arm64
         context: .
         push: true
-        tags: $DOCKER_USER/$REPO_NAME:arm64
+        tags: $DOCKER_USER/${{ github.event.repository.name }}:arm64
 
     - name: Build the Docker image arm64
       uses: docker/build-push-action@v5
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
-        REPO_NAME: ${{ github.event.repository.name }}
       with:
         file: ./Dockerfile_amd64
         context: .
         push: true
-        tags: $DOCKER_USER/$REPO_NAME:amd64
+        tags: $DOCKER_USER/${{ github.event.repository.name }}:amd64
