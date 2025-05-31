@@ -5,6 +5,15 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      dockerhub_operation:
+        description: "Building ARM64 Image and Deploy status-page on Dockerhub"
+        required: true
+        default: "apply"
+        type: choice
+        options:
+          - apply
 
 jobs:
   build:
@@ -28,9 +37,10 @@ jobs:
     - name: Build the Docker image
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
-      run: docker build --file Dockerfile --platform linux/arm64/v8 -t $DOCKER_USER/status-blog --no-cache .
-
-    # - name: Docker Push
-    #   env:
-    #     DOCKER_USER: ${{secrets.DOCKER_USER}}
-    #   run: docker push $DOCKER_USER/status-blog
+      run: |
+        docker build --file Dockerfile_arm64 --platform linux/arm64/v8 -t $DOCKER_USER/${{ github.repository }}
+        #docker push $DOCKER_USER/status-blog:arm64
+      
+        docker build --file Dockerfile_amd64 -t $DOCKER_USER/${{ github.repository }}
+        #docker push $DOCKER_USER/status-blog:amd64
+      if: "${{ github.event.inputs.dockerhub_operation == 'apply' }}"
