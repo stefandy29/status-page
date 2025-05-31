@@ -46,10 +46,10 @@ jobs:
       with:
         file: ./Dockerfile_arm64
         platforms: linux/arm64/v8
-        context: .
+        context: "{{defaultContext}}"
         push: true
         tags: >
-          $DOCKER_USER/${{ github.event.repository.name }}:arm64
+          docker.io/$DOCKER_USER/${{ github.event.repository.name }}:arm64
 
     - name: Build the Docker image arm64
       uses: docker/build-push-action@v6
@@ -58,7 +58,7 @@ jobs:
       with:
         file: ./Dockerfile_amd64
         platforms: linux/amd64
-        context: .
+        context: "{{defaultContext}}"
         push: true
         tags: >
-          $DOCKER_USER/${{ github.event.repository.name }}:amd64
+          docker.io/$DOCKER_USER/${{ github.event.repository.name }}:amd64
