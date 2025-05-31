@@ -28,7 +28,7 @@ jobs:
     - name: Build the Docker image
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
-      run: docker build . --file Dockerfile --platform linux/arm64/v8 -t $DOCKER_USER/status-blog --no-cache .
+      run: docker build --file Dockerfile --platform linux/arm64/v8 -t $DOCKER_USER/status-blog --no-cache .
 
     # - name: Docker Push
     #   env:
