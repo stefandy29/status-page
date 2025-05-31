@@ -34,7 +34,7 @@ jobs:
         platforms: linux/arm64/v8
         context: .
         push: true
-        tags: ${{secrets.DOCKER_USER}}/${{ github.event.repository.name }}:arm64
+        tags: docker.io/${{secrets.DOCKER_USER}}/${{ github.event.repository.name }}:arm64
 
     - name: Build the Docker image amd64
       uses: docker/build-push-action@v6
@@ -43,4 +43,4 @@ jobs:
         platforms: linux/amd64
         context: .
         push: true
-        tags: ${{secrets.DOCKER_USER}}/${{ github.event.repository.name }}:amd64
+        tags: docker.io/${{secrets.DOCKER_USER}}/${{ github.event.repository.name }}:amd64
